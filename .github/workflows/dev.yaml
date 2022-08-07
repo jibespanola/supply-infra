@@ -1,0 +1,100 @@
+name: Dev IaC Workflow
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "terraform/dev/**"
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.9
+
+      - name: Terraform Format
+        id: fmt
+        run: |
+          cd terraform/dev
+          terraform fmt -check -diff
+        continue-on-error: false
+
+      - name: Terraform Init
+        id: init
+        run: |
+          cd terraform/dev
+          terraform init -input=false
+        continue-on-error: false
+
+      - name: Terraform Validate
+        id: validate
+        run: |
+          cd terraform/dev
+          terraform validate -no-color
+        continue-on-error: false
+
+      - name: Terraform Plan
+        id: plan
+        run: |
+          cd terraform/dev
+          terraform plan \
+            -var-file="dev.tfvars" \
+            -input=false \
+            -out=tfplan
+
+      - name: Terraform Apply
+        id: apply
+        run: |
+          cd terraform/dev
+          terraform apply \
+            -input=false \
+            tfplan
+
+      # - name: Terraform Destroy
+      #   id: destroy
+      #   run: |
+      #     cd terraform/dev
+      #     terraform destroy \
+      #       -var-file="dev.tfvars" \
+      #       -auto-approve
+
+  deploy-ecs:
+    name: ECS Deploy
+    needs: terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+
+      - name: Run ECS python script
+        run: |
+          pip3 install boto3 click
+          python3 deploy_ecs/update_ecs.py \
+            --cluster=instahomes-dev-cluster --service=instahomes-dev-django-service
+          python3 deploy_ecs/update_ecs.py \
+            --cluster=instahomes-dev-cluster --service=instahomes-dev-react-service
