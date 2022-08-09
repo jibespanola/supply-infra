@@ -38,7 +38,7 @@ resource "aws_ecs_service" "fastapi" {
   load_balancer {
     target_group_arn = var.backend_target_group_arn
     container_name   = var.backend_container_name
-    container_port   = 8001
+    container_port   = 8000
   }
 }
 
