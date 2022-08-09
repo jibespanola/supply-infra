@@ -51,61 +51,28 @@ variable "rds_security_group" {
   type        = string
 }
 
-# RDS
-variable "rds_address" {
-  type = string
-}
-
 
 # ECS
 variable "react_image_tag" {
   type = string
 }
 
-variable "django_image_tag" {
+variable "fastapi_image_tag" {
   type = string
-}
-
-variable "db_name" {
-  type    = string
-  default = "instahomes"
 }
 variable "database" {
   type    = string
   default = "postgres"
 }
-variable "db_user" {
-  type    = string
-  default = "alec"
-}
 variable "db_port" {
-  type    = string
-  default = "5432"
+  type = string
 }
-variable "aws_s3_file_overwrite" {
-  type    = string
-  default = "True"
+variable "db_host" {
+  type = string
 }
-variable "use_s3" {
-  type    = string
-  default = "True"
-}
-variable "debug" {
-  type    = string
-  default = "0"
-}
-
 variable "ami" {
   type    = string
   default = "ami-0ec2e33c6e1161e98"
-}
-variable "r53_zone_id" {
-  description = "Route 53 zone ID"
-  type        = string
-}
-variable "r53_record_name" {
-  description = "Route 53 record name"
-  type        = string
 }
 variable "instance_type" {
   type = string
@@ -117,11 +84,5 @@ variable "autoscale_max" {
   type = string
 }
 variable "autoscale_desired" {
-  type = string
-}
-variable "rds_instance_class" {
-  type = string
-}
-variable "domain_name" {
   type = string
 }

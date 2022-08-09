@@ -25,9 +25,9 @@ module "vpc" {
 module "securitygroups" {
   source = "../modules/securitygroups"
 
-  alb_security_group = "${var.env}-${var.alb_security_group}"
-  ecs_security_group = "${var.env}-${var.ecs_security_group}"
-  rds_security_group = "${var.env}-${var.rds_security_group}"
+  alb_security_group = "${var.app_name}-${var.env}-${var.alb_security_group}"
+  ecs_security_group = "${var.app_name}-${var.env}-${var.ecs_security_group}"
+  rds_security_group = "${var.app_name}-${var.env}-${var.rds_security_group}"
 
   vpc_id         = module.vpc.vpc_id
   vpc_cidr_block = module.vpc.vpc_cidr_block
@@ -49,15 +49,16 @@ module "alb" {
   vpc_id              = module.vpc.vpc_id
   backend_tg_name     = "${var.env}-backend-tg"
   frontend_tg_name    = "${var.env}-frontend-tg"
-  r53_record_name     = var.r53_record_name
-  r53_zone_id         = var.r53_zone_id
-  domain_name         = var.domain_name
+  # r53_record_name     = var.r53_record_name
+  # r53_zone_id         = var.r53_zone_id
+  # domain_name         = var.domain_name
 }
 
 module "iam" {
-  source = "../modules/iam"
-  env    = var.env
-  region = var.region
+  source   = "../modules/iam"
+  env      = var.env
+  region   = var.region
+  app_name = var.app_name
 }
 
 output "alb_hostname" {

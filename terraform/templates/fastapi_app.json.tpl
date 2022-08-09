@@ -13,19 +13,15 @@
         "protocol": "tcp"
       }
     ],
-    "command": ["uvicorn", "app.main:app", "--reload", "--workers", "1" "--host", "0.0.0.0", "--port", "8000"],
+    "command": ["uvicorn", "app.main:app", "--reload", "--workers", "1", "--host", "0.0.0.0", "--port", "8000"],
     "environment": [
       {
-        "name": "DB_NAME",
-        "value": "${db_name}"
+        "name": "DATABASE",
+        "value": "${database}"
       },
       {
-        "name": "DB_USER",
-        "value": "${db_user}"
-      },
-      {
-        "name": "DB_PASSWORD",
-        "value": "${db_password}"
+        "name": "DATABASE_URL",
+        "value": "${database_url}"
       },
       {
         "name": "DB_HOST",
@@ -33,21 +29,13 @@
       },
       {
         "name": "DB_PORT",
-        "value": "5432"
-      },
-      {
-        "name": "DATABASE",
-        "value": "${database}"
-      },
-      {
-        "name": "DEBUG",
-        "value": "${debug}"
+        "value": "${db_port}"
       }
     ],
     "mountPoints": [
       {
-        "containerPath": "/usr/src/app/staticfiles",
-        "sourceVolume": "static_volume"
+        "sourceVolume": "cockroach_ca",
+        "containerPath": "/root/.postgresql/root.crt"
       }
     ],
     "logConfiguration": {

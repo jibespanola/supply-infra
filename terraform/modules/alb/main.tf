@@ -14,7 +14,7 @@ resource "aws_alb_target_group" "backend-target-group" {
   vpc_id   = var.vpc_id
 
   health_check {
-    path                = "/ping/"
+    path                = "/ping"
     port                = "traffic-port"
     healthy_threshold   = 5
     unhealthy_threshold = 2
@@ -27,7 +27,7 @@ resource "aws_alb_target_group" "backend-target-group" {
 # Target group frontend
 resource "aws_alb_target_group" "default-target-group" {
   name     = var.frontend_tg_name
-  port     = 80
+  port     = 3000
   protocol = "HTTP"
   vpc_id   = var.vpc_id
 
@@ -45,11 +45,11 @@ resource "aws_alb_target_group" "default-target-group" {
 # Listener (redirects traffic from the load balancer to the target group)
 resource "aws_alb_listener" "ecs-alb-https-listener" {
   load_balancer_arn = aws_lb.loadbalancer.id
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = aws_acm_certificate.cert.arn
-  depends_on        = [aws_alb_target_group.default-target-group]
+  port              = "80"
+  protocol          = "HTTP"
+  # ssl_policy        = "ELBSecurityPolicy-2016-08"
+  # certificate_arn   = aws_acm_certificate.cert.arn
+  depends_on = [aws_alb_target_group.default-target-group]
 
   default_action {
     type             = "forward"
@@ -69,28 +69,28 @@ resource "aws_lb_listener_rule" "static" {
 
   condition {
     path_pattern {
-      values = ["/admin*", "/ping/", "/devadmin*", "/api*"]
+      values = ["/admin*", "/ping*", "/devadmin*", "/api*"]
     }
   }
 }
 
-resource "aws_acm_certificate" "cert" {
-  domain_name       = var.domain_name
-  validation_method = "DNS"
+# resource "aws_acm_certificate" "cert" {
+#   domain_name       = var.domain_name
+#   validation_method = "DNS"
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+#   lifecycle {
+#     create_before_destroy = true
+#   }
+# }
 
-resource "aws_route53_record" "record" {
-  zone_id = var.r53_zone_id
-  name    = var.r53_record_name
-  type    = "A"
+# resource "aws_route53_record" "record" {
+#   zone_id = var.r53_zone_id
+#   name    = var.r53_record_name
+#   type    = "A"
 
-  alias {
-    name                   = aws_lb.loadbalancer.dns_name
-    zone_id                = aws_lb.loadbalancer.zone_id
-    evaluate_target_health = true
-  }
-}
+#   alias {
+#     name                   = aws_lb.loadbalancer.dns_name
+#     zone_id                = aws_lb.loadbalancer.zone_id
+#     evaluate_target_health = true
+#   }
+# }

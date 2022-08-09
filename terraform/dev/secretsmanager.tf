@@ -1,9 +1,9 @@
 data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "ecs-creds"
+  secret_id = "ecs-creds-supplycart"
 }
 
 locals {
-  ecs_creds = jsondecode(
+  ecs_creds_supplycart = jsondecode(
     data.aws_secretsmanager_secret_version.creds.secret_string
   )
 }

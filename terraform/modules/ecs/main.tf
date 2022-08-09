@@ -18,8 +18,8 @@ resource "aws_ecs_task_definition" "backend" {
   container_definitions = var.backend_container_definitions
 
   volume {
-    name      = "static_volume"
-    host_path = "/usr/src/app/staticfiles/"
+    name      = "cockroach_ca"
+    host_path = "/home/ssm-user/.postgresql/root.crt"
   }
 }
 
@@ -28,8 +28,8 @@ resource "aws_ecs_task_definition" "frontend" {
   container_definitions = var.frontend_container_definitions
 }
 
-resource "aws_ecs_service" "django" {
-  name            = "${var.ecs_cluster_name}-django-service"
+resource "aws_ecs_service" "fastapi" {
+  name            = "${var.ecs_cluster_name}-fastapi-service"
   cluster         = aws_ecs_cluster.cluster.id
   task_definition = aws_ecs_task_definition.backend.arn
   iam_role        = var.ecs_service_role_arn
@@ -38,7 +38,7 @@ resource "aws_ecs_service" "django" {
   load_balancer {
     target_group_arn = var.backend_target_group_arn
     container_name   = var.backend_container_name
-    container_port   = 8000
+    container_port   = 8001
   }
 }
 
@@ -52,17 +52,17 @@ resource "aws_ecs_service" "react" {
   load_balancer {
     target_group_arn = var.frontend_target_group_arn
     container_name   = var.frontend_container_name
-    container_port   = 80
+    container_port   = 3000
   }
 }
 
 resource "aws_cloudwatch_log_group" "backend-log-group" {
-  name              = "${var.log_group_name}-django"
+  name              = "${var.log_group_name}-fastapi"
   retention_in_days = var.log_retention_in_days
 }
 
 resource "aws_cloudwatch_log_stream" "backend-log-stream" {
-  name           = "django-${var.log_stream_name}"
+  name           = "fastapi-${var.log_stream_name}"
   log_group_name = aws_cloudwatch_log_group.backend-log-group.name
 }
 

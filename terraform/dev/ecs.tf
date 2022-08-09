@@ -2,14 +2,14 @@ data "template_file" "template_backend" {
   template = file("../templates/fastapi_app.json.tpl")
 
   vars = {
-    image_target            = "011095803615.dkr.ecr.${var.region}.amazonaws.com/supplycart-backend:${var.fastapi_image_tag}"
-    region                  = var.region
-    db_name                 = var.db_name
-    db_user                 = var.db_user
-    db_password             = local.ecs_creds.db_password
-    db_host                 = var.rds_address
-    db_port                 = var.db_port
-    database                = var.database
+    image_target = "011095803615.dkr.ecr.${var.region}.amazonaws.com/supplycart-backend:${var.fastapi_image_tag}"
+    env          = var.env
+    region       = var.region
+    app_name     = var.app_name
+    database_url = local.ecs_creds_supplycart.database_url
+    db_host      = var.db_host
+    db_port      = var.db_port
+    database     = var.database
   }
 }
 

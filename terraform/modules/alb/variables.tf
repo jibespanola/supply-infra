@@ -22,15 +22,15 @@ variable "alb_subnets" {
   description = "List of ALB subnets"
   type        = list(string)
 }
-variable "r53_zone_id" {
-  description = "Route 53 zone ID"
-  type        = string
-}
-variable "r53_record_name" {
-  description = "Route 53 record name"
-  type        = string
-}
-variable "domain_name" {
-  description = "Domain to be registered for cert manager"
-  type        = string
-}
+# variable "r53_zone_id" {
+#   description = "Route 53 zone ID"
+#   type        = string
+# }
+# variable "r53_record_name" {
+#   description = "Route 53 record name"
+#   type        = string
+# }
+# variable "domain_name" {
+#   description = "Domain to be registered for cert manager"
+#   type        = string
+# }
