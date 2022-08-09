@@ -26,6 +26,10 @@ format-modules:
 		cd -; \
 	done
 
+.PHONY: format-dev
+format-dev:
+	cd terraform/dev/; terraform fmt
+
 .PHONY: tf-plandev
 tf-plandev: check-creds format-modules
 	cd terraform/dev; terraform init; terraform fmt; terraform validate && \
