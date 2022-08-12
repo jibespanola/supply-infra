@@ -4,7 +4,7 @@
     "image": "${image_target}",
     "essential": true,
     "cpu": 10,
-    "memory": 512,
+    "memory": 3000,
     "links": [],
     "portMappings": [
       {

@@ -4,7 +4,7 @@
     "image": "${image_target}",
     "essential": true,
     "cpu": 10,
-    "memory": 512,
+    "memory": 1000,
     "links": [],
     "portMappings": [
       {
@@ -35,7 +35,7 @@
     "mountPoints": [
       {
         "sourceVolume": "cockroach_ca",
-        "containerPath": "/root/.postgresql/root.crt"
+        "containerPath": "/root/.postgresql/"
       }
     ],
     "logConfiguration": {
