@@ -21,7 +21,7 @@ rds_security_group = "rds-sg"
 
 # ECS infra
 ami               = "ami-0a29369712cfd1acc"
-instance_type     = "t2.small"
+instance_type     = "t2.medium"
 autoscale_min     = "2"
 autoscale_max     = "3"
 autoscale_desired = "2"
@@ -42,4 +42,4 @@ database = "postgres"
 # IMAGE TAGS -- GET THE VERSIONS FROM THE APP REPO CI OUTPUTS #
 #########
 fastapi_image_tag = "dev-0.0.1-b361a50"
-react_image_tag   = "dev-0.0.1-681bd6f"
+react_image_tag   = "dev-0.0.1-2f03999"
