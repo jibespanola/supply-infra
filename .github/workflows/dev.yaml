@@ -75,7 +75,7 @@ jobs:
 
   deploy-ecs:
     name: ECS Deploy
-    # needs: terraform
+    needs: terraform
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
