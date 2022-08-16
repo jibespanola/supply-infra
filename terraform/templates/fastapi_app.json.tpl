@@ -24,6 +24,22 @@
         "value": "${database_url}"
       },
       {
+        "name": "DB_ENGINE",
+        "value": "${db_engine}"
+      },
+      {
+        "name": "DB_USER",
+        "value": "${db_user}"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+        "name": "DB_NAME",
+        "value": "${db_name}"
+      },
+      {
         "name": "DB_HOST",
         "value": "${db_host}"
       },

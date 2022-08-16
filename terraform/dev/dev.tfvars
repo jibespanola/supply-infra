@@ -34,12 +34,15 @@ autoscale_desired = "2"
 # domain_name = "*.instahomes.com.ph"
 
 # Container env vars
-db_port  = "26257"
-db_host  = "free-tier8.aws-ap-southeast-1.cockroachlabs.cloud"
-database = "postgres"
+database  = "cockroach"
+db_engine = "cockroachdb+asyncpg"
+db_user   = "test-user"
+db_name   = "supplycart-dev-2296.defaultdb"
+db_host   = "free-tier8.aws-ap-southeast-1.cockroachlabs.cloud"
+db_port   = "26257"
 
 ########
 # IMAGE TAGS -- GET THE VERSIONS FROM THE APP REPO CI OUTPUTS #
 #########
-fastapi_image_tag = "dev-0.0.1-b361a50"
+fastapi_image_tag = "dev-0.0.1-9d07564"
 react_image_tag   = "dev-0.0.1-2f03999"

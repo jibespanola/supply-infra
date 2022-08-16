@@ -6,10 +6,14 @@ data "template_file" "template_backend" {
     env          = var.env
     region       = var.region
     app_name     = var.app_name
+    database     = var.database
     database_url = local.ecs_creds_supplycart.database_url
+    db_engine    = var.db_engine
+    db_user      = var.db_user
+    db_password  = local.ecs_creds_supplycart.db_password
+    db_name      = var.db_name
     db_host      = var.db_host
     db_port      = var.db_port
-    database     = var.database
   }
 }
 
