@@ -62,7 +62,17 @@ variable "fastapi_image_tag" {
 }
 variable "database" {
   type    = string
-  default = "postgres"
+  default = "cockroach"
+}
+variable "db_engine" {
+  type    = string
+  default = "cockroachdb+asyncpg"
+}
+variable "db_user" {
+  type = string
+}
+variable "db_name" {
+  type = string
 }
 variable "db_port" {
   type = string
