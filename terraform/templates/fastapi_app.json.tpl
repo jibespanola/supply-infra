@@ -48,12 +48,6 @@
         "value": "${db_port}"
       }
     ],
-    "mountPoints": [
-      {
-        "sourceVolume": "cockroach_ca",
-        "containerPath": "/root/.postgresql/"
-      }
-    ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
