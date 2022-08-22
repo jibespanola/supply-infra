@@ -28,7 +28,7 @@ autoscale_desired = "2"
 
 # Container env vars
 database  = "cockroach"
-db_engine = "cockroachdb+asyncpg"
+db_engine = "cockroachdb"
 db_user   = "prod-admin"
 db_name   = "supplycart-prod-2410"
 db_host   = "free-tier8.aws-ap-southeast-1.cockroachlabs.cloud"
