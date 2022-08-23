@@ -30,7 +30,7 @@ autoscale_desired = "2"
 database  = "cockroach"
 db_engine = "cockroachdb"
 db_user   = "prod-admin"
-db_name   = "supplycart-prod-2410"
+db_name   = "supplycart-prod-2410.defaultdb"
 db_host   = "free-tier8.aws-ap-southeast-1.cockroachlabs.cloud"
 db_port   = "26257"
 
