@@ -52,7 +52,7 @@ resource "aws_ecs_service" "react" {
   load_balancer {
     target_group_arn = var.frontend_target_group_arn
     container_name   = var.frontend_container_name
-    container_port   = 3000
+    container_port   = 80
   }
 }
 

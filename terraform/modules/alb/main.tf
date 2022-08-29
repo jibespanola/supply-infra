@@ -27,7 +27,7 @@ resource "aws_alb_target_group" "backend-target-group" {
 # Target group frontend
 resource "aws_alb_target_group" "default-target-group" {
   name     = var.frontend_tg_name
-  port     = 3000
+  port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
 
