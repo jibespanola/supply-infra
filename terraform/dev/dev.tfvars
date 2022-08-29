@@ -44,5 +44,5 @@ db_port   = "26257"
 ########
 # IMAGE TAGS -- GET THE VERSIONS FROM THE APP REPO CI OUTPUTS #
 #########
-fastapi_image_tag = "dev-0.1.0-dd5319a"
-react_image_tag   = "dev-0.0.1-2f03999"
+fastapi_image_tag = "dev-0.1.0-32a996d"
+react_image_tag   = "dev-3.1.2-32a996d"
