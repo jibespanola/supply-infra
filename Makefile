@@ -30,12 +30,21 @@ format-modules:
 format-dev:
 	cd terraform/dev/; terraform fmt
 
+.PHONY: format-prod
+format-prod:
+	cd terraform/prod/; terraform fmt
+
 .PHONY: tf-plandev
 tf-plandev: check-creds format-modules
 	cd terraform/dev; terraform init; terraform fmt; terraform validate && \
 	terraform plan \
 		-var-file="dev.tfvars" \
         -input=false
+	
+format: 
+	make format-dev 
+	make format-prod 
+	make format-modules
 
 .PHONY: tf-applydev
 tf-applydev: tf-plandev 
