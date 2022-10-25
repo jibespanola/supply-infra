@@ -90,10 +90,13 @@ jobs:
 
       - name: Set up Python
         uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+          cache: "pip"
 
       - name: Run ECS python script
         run: |
-          pip3 install boto3 click
+          pip install boto3 click
           python3 deploy_ecs/update_ecs.py \
             --cluster=supplycart-dev-cluster --service=supplycart-dev-fastapi-service
           python3 deploy_ecs/update_ecs.py \
